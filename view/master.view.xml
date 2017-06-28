@@ -1,0 +1,43 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+		controllerName="sap.ui.movielist.controller.master" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="master" title="{i18n>movieListTitle}">
+		<!-- 
+		<headerContent>
+			<Button icon="sap-icon://home" press="onHomePressed" />
+		</headerContent>  
+		-->      
+   		<subHeader id="masterSubHeader">
+			<Bar id="searchBar">
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" width="100%" showRefreshButton="{=${device>/support/touch} ? false : true }" />
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+        <content>   
+		   <List id="masterList" 
+			     class="sapUiResponsiveMargin"
+			     width="auto"
+			     items="{path:'movielist>/MovieSet',sorter: {path: 'Title', descending: false}}"
+				 growing="true"
+				 growingThreshold="10"
+				 growingScrollToLoad="true"
+				 busyIndicatorDelay="100"	     
+			     enableBusyIndicator="true"> 		      				     
+		      <items>
+				<StandardListItem
+				    type="{=${device>/system/phone} ? 'Navigation' : 'Active'}"
+					title="{movielist>Title}"
+					description="{movielist>Released}"
+					adaptTitleSize="true" 
+					press="onMovieSelected"/>
+		      </items>
+		   </List>        				
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button id="addButton" icon="sap-icon://add" press="onAdd"/>
+			</Toolbar>
+		</footer>		
+	</Page>
+</core:View>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+		<script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m"
+				data-sap-ui-theme="sap_bluecrystal"
+				data-sap-ui-preload="async"
+				data-sap-ui-bindingSyntax="complex"
+    			data-sap-ui-resourceroots='{ "sap.ui.movielist": "../" }'>
+		</script>
+
+		<script> 
+		  sap.ui.getCore().attachInit( 
+		    function () { 
+		    	sap.ui.require(["sap/ui/movielist/localService/mockserver","sap/m/SplitApp","sap/ui/core/mvc/View"], 
+		    		function(mockserver,SplitApp,View) {
+	    	            mockserver.init();
+	    	            // build models
+	    	            var oResourceModel = new sap.ui.model.resource.ResourceModel({bundleName:"sap.ui.movielist.i18n.i18n"});
+	                    var oModel = new sap.ui.model.odata.ODataModel("http://mymockserver/",{json:true,user:"BELLET",passowrd:"1sjus7m3"});
+	                    var oDeviceModel = new sap.ui.model.json.JSONModel(sap.ui.Device);
+	                    // set models
+	                    sap.ui.getCore().setModel(oResourceModel, "i18n");
+	                    sap.ui.getCore().setModel(oModel, "movielist");
+	                    sap.ui.getCore().setModel(oDeviceModel, "device");
+	                    // build split application
+	                    var app = new sap.m.SplitApp("movieList",{homeIcon:"movie-icon.png"});
+	                    var master = sap.ui.view({id:"masterPage", viewName:"sap.ui.movielist.view.master", type:sap.ui.core.mvc.ViewType.XML});
+	                    var detail = sap.ui.view({id:"detailPage", viewName:"sap.ui.movielist.view.detail", type:sap.ui.core.mvc.ViewType.XML});
+	                    app.addMasterPage(master);
+	                    app.addDetailPage(detail);
+	                    app.placeAt("content"); } 
+	                 )
+		    	}
+		    );
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>

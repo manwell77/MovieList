@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:sap="http://www.sap.com/Protocols/SAPData" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xml:lang="en" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" sap:schema-version="1" Namespace="zmovielist_srv">
+			<EntityType sap:content-version="1" Name="Movie">
+				<Key>
+					<PropertyRef Name="MovieID"/>
+				</Key>
+				<Property Name="Genre" MaxLength="20" Type="Edm.String"/>
+				<Property Name="Playbill" Type="Edm.String"/>
+				<Property Name="Summary" Type="Edm.String"/>
+				<Property Name="Writers" MaxLength="100" Type="Edm.String"/>
+				<Property Name="Director" MaxLength="30" Type="Edm.String"/>
+				<Property Name="Released" Type="Edm.String"/>
+				<Property Name="Producer" MaxLength="30" Type="Edm.String"/>
+				<Property Name="Title" MaxLength="100" Type="Edm.String"/>
+				<Property Name="MovieID" Type="Edm.String" Nullable="false"/>
+				<NavigationProperty Name="ActorSet" ToRole="ToRole_MovieActor" FromRole="FromRole_MovieActor" Relationship="zmovielist_srv.MovieActor"/>
+			</EntityType>
+			<EntityType sap:content-version="1" Name="Actor">
+				<Key>
+					<PropertyRef Name="ActorID"/>
+				</Key>
+				<Property Name="Scene3" Type="Edm.String"/>
+				<Property Name="Scene2" Type="Edm.String"/>
+				<Property Name="Scene1" Type="Edm.String"/>
+				<Property Name="Picture" Type="Edm.String"/>
+				<Property Name="Role" MaxLength="30" Type="Edm.String"/>
+				<Property Name="Name" MaxLength="30" Type="Edm.String"/>
+				<Property Name="MovieID" Type="Edm.String" Nullable="false"/>
+				<Property Name="ActorID" Type="Edm.String" Nullable="false"/>
+				<Property Name="Fictional" Type="Edm.String"/>
+			</EntityType>
+			<Association sap:content-version="1" Name="MovieActor">
+				<End Type="zmovielist_srv.Movie" Role="FromRole_MovieActor" Multiplicity="1"/>
+				<End Type="zmovielist_srv.Actor" Role="ToRole_MovieActor" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_MovieActor">
+						<PropertyRef Name="MovieID"/>
+					</Principal>
+					<Dependent Role="ToRole_MovieActor">
+						<PropertyRef Name="MovieID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="zmovielist_srv_Entities" sap:supported-formats="atom json" m:IsDefaultEntityContainer="true">
+				<EntitySet sap:content-version="1" Name="MovieSet" EntityType="zmovielist_srv.Movie"/>
+				<EntitySet sap:content-version="1" Name="ActorSet" EntityType="zmovielist_srv.Actor"/>
+				<AssociationSet sap:content-version="1" Name="MovieActorSet" sap:deletable="false" sap:updatable="false" sap:creatable="false" Association="zmovielist_srv.MovieActor">
+					<End Role="FromRole_MovieActor" EntitySet="MovieSet"/>
+					<End Role="ToRole_MovieActor" EntitySet="ActorSet"/>
+				</AssociationSet>
+			</EntityContainer>
+			<atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="http://flint.techedge.corp:8080/sap/opu/odata/sap/zmovielist_srv/$metadata" rel="self"/>
+			<atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="http://flint.techedge.corp:8080/sap/opu/odata/sap/zmovielist_srv/$metadata" rel="latest-version"/>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

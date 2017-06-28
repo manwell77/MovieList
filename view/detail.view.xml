@@ -1,0 +1,85 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+		controllerName="sap.ui.movielist.controller.detail" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>movieDetailTitle}" showNavButton="{=${device>/system/phone} ? true : false}" navButtonPress="onBack">
+		<content>	
+			<VBox>			
+				<f:Form id="movieDetail" editable="true">
+					<f:title>
+						<core:Title text="{=${movielist>MovieID} ? ${i18n>movieKey}.concat(': \'',${movielist>MovieID},'\'') : ${i18n>movieNew}}" />
+					</f:title>					
+					<f:layout>
+						<f:ResponsiveGridLayout	columnsXL="2" columnsL="2" columnsM="1" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer title="{i18n>playbill}">
+							<f:formElements>
+								<f:FormElement>
+								    <l:VerticalLayout>
+									<Image id="Playbill" src="{=${movielist>Playbill} ? ${movielist>Playbill} : ${i18n>photoAdd}}" densityAware="false" width="150px"></Image> 
+									<u:FileUploader	visible="false" id="PlaybillUploader" mimeType="image/png,image/jpeg" name="PlaybillUploader" width="150px" buttonOnly="true" uploadOnChange="true" typeMissmatch = "handleTypeMissmatch" uploadComplete="handleUploadComplete"/>
+									</l:VerticalLayout>								
+								</f:FormElement>	
+							</f:formElements>				
+						</f:FormContainer>	
+						<f:FormContainer title="{i18n>summary}">
+							<f:formElements>						
+								<f:FormElement>
+									<f:fields>
+										<TextArea value="{=${movielist>Summary} ? ${movielist>Summary} : ''}" id="Summary" editable="false" rows="10"/>	
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>				
+						</f:FormContainer>																
+						<f:FormContainer title="{i18n>generaldata}">
+							<f:formElements>														
+								<f:FormElement label="{i18n>title}">
+									<f:fields>
+										<Input value="{=${movielist>Title} ? ${movielist>Title} : ''}" id="Title" editable="false" />
+									</f:fields>
+								</f:FormElement>	
+								<f:FormElement label="{i18n>director}">
+									<f:fields>
+										<Input value="{=${movielist>Director} ? ${movielist>Director} : ''}" id="Director" editable="false" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>genre}">
+									<f:fields>
+										<Input value="{=${movielist>Genre} ? ${movielist>Genre} : ''}" id="Genre" editable="false" />
+									</f:fields>
+								</f:FormElement>														
+							</f:formElements>				
+						</f:FormContainer>	
+						<f:FormContainer title="{i18n>production}">				
+							<f:formElements>
+								<f:FormElement label="{i18n>released}">
+									<f:fields>
+										<Input value="{=${movielist>Released} ? ${movielist>Released} : ''}" id="Released" editable="false" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>producer}">
+									<f:fields>
+										<Input value="{=${movielist>Producer} ? ${movielist>Producer} : ''}" id="Producer" editable="false" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>writers}">
+									<f:fields>
+										<Input value="{=${movielist>Writers} ? ${movielist>Writers} : ''}" id="Writers" editable="false" />
+									</f:fields>
+								</f:FormElement>																	
+							</f:formElements>		
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>			
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button id="buttonEdit" text="Edit" press="onEdit"/>
+				<Button id="buttonDelete" text="Delete" press="onDelete"/>
+				<Button id="buttonSave" text="Save" press="onSave" visible="false"/>
+				<Button id="buttonCreate" text="Create" press="onCreate" visible="false"/>
+			</Toolbar>
+		</footer>		
+	</Page>
+</core:View>
